@@ -6,7 +6,7 @@ import Welcome from "./Welcome";
 import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import AskDialog from "./AskDialog";
-import Hall from "./Hall";
+import Agora from "./Agora";
 
 const theme = createMuiTheme({
   palette: {
@@ -47,7 +47,7 @@ function App() {
               <AskDialog />
             </Route>
             <Route path="/">
-              <Hall />
+              <Agora />
             </Route>
           </Switch>
         </Router>
