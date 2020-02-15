@@ -9,7 +9,7 @@ import Welcome from './Welcome';
 
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import AskAnswer from "./AskAnswer";
+import Ask from "./Ask";
 
 const theme = createMuiTheme({
   palette: {
@@ -47,7 +47,7 @@ function App() {
         <Router>
           <Switch>
             <Route path="/askanswer">
-              <AskAnswer/>
+              <Ask/>
             </Route>
             <Route path="/">
               <Welcome/>
