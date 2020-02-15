@@ -7,8 +7,9 @@ import {
 import './App.css';
 import Welcome from './Welcome';
 
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import AskAnswer from "./AskAnswer";
 
 const theme = createMuiTheme({
   palette: {
@@ -29,16 +30,31 @@ const theme = createMuiTheme({
   },
 });
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    height: '100vh',
+    width: '100vw',
+    backgroundColor: theme.palette.background.default,
+  },
+}));
+
 function App() {
+  const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
-    <Router>
-      <Switch>
-        <Route path="/">
-          <Welcome/>
-        </Route>
-      </Switch>
-    </Router>
+      <div className={classes.root}>
+        <Router>
+          <Switch>
+            <Route path="/askanswer">
+              <AskAnswer/>
+            </Route>
+            <Route path="/">
+              <Welcome/>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
     </ThemeProvider>
   );
 }
