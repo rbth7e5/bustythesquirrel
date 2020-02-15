@@ -2,9 +2,10 @@ import {
   AppBar,
   Button,
   Card,
+  CardActionArea,
   CardContent,
+  Chip,
   List,
-  ListItem,
   Toolbar,
   Typography
 } from "@material-ui/core";
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   title: {
-    flexGrow: 1
+    marginRight: "auto"
   },
   content: {
     flex: 1,
@@ -28,7 +29,6 @@ const useStyles = makeStyles(theme => ({
   },
   listItem: {
     marginBottom: 32,
-    padding: 16,
     fontSize: 18
   },
   issuesView: {
@@ -84,10 +84,17 @@ export default function Agora() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Agora
-          </Typography>
-          <Button variant="contained" onClick={() => setAskOpen(true)}>
+          <img
+            src={require("./Logo_only.png")}
+            alt="Agora"
+            height={64}
+            className={classes.title}
+          />
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setAskOpen(true)}
+          >
             Ask a Question
           </Button>
         </Toolbar>
@@ -99,14 +106,11 @@ export default function Agora() {
           </Typography>
           <List>
             {questions.map((qns, i) => (
-              <ListItem
-                button
-                component={Paper}
+              <Issue
+                primary={qns}
+                tags={["politics", "trump", "cake"]}
                 key={i}
-                className={classes.listItem}
-              >
-                {qns}
-              </ListItem>
+              />
             ))}
           </List>
         </div>
@@ -117,19 +121,35 @@ export default function Agora() {
           </Typography>
           <List>
             {issues.map((issue, i) => (
-              <ListItem
-                button
-                component={Paper}
+              <Issue
+                primary={issue}
+                tags={["cows", "milk", "mushrooms"]}
                 key={i}
-                className={classes.listItem}
-              >
-                {issue}
-              </ListItem>
+              />
             ))}
           </List>
         </div>
       </div>
       <AskDialog open={askOpen} onClose={() => setAskOpen(false)} />
     </div>
+  );
+}
+
+function Issue(props) {
+  const classes = useStyles();
+  const { primary, tags, category, country } = props;
+  return (
+    <Card className={classes.listItem}>
+      <CardActionArea>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {primary}
+          </Typography>
+          {tags.map(tag => (
+            <Chip style={{ margin: 4 }} label={tag} />
+          ))}
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 }
