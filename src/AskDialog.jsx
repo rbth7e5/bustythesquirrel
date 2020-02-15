@@ -342,6 +342,13 @@ export default function AskDialog(props) {
           style={{ marginBottom: 16 }}
           label="the topic of"
         />
+        <TextField
+          fullWidth
+          multiline
+          variant="outlined"
+          style={{ marginBottom: 16, marginTop: 16 }}
+          label="Other Details"
+        />
       </DialogContent>
     </Dialog>
   );
