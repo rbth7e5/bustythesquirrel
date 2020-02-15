@@ -282,17 +282,33 @@ const countryList = [
   "Åland Islands"
 ];
 
+const categoryList = [
+  "Change my mind on",
+  "Have a discussion with me on",
+  "Help me understand",
+  "Share how they feel about",
+  "Share their perspectives on"
+];
+
 export default function AskDialog(props) {
   const classes = useStyles();
   const [country, setCountry] = useState(countryList[0]);
+  const [category, setCategory] = useState(categoryList[0]);
   const { onClose, open } = props;
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Ask</DialogTitle>
-      <DialogContent>
-        <FormControl style={{ margin: 16, flex: 1 }}>
-          <InputLabel id="country-label">Someone from</InputLabel>
+      <DialogContent
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minWidth: 400,
+          padding: 32
+        }}
+      >
+        <FormControl fullWidth style={{ marginBottom: 16 }}>
+          <InputLabel id="country-label">I want someone from</InputLabel>
           <Select
             labelId="country-label"
             id="country-select"
@@ -306,7 +322,26 @@ export default function AskDialog(props) {
             ))}
           </Select>
         </FormControl>
-        <TextField style={{ margin: 16 }} label="About" />
+        <FormControl fullWidth style={{ marginBottom: 16 }}>
+          <InputLabel id="category-label">to</InputLabel>
+          <Select
+            labelId="category-label"
+            id="category-select"
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+          >
+            {categoryList.map((c, i) => (
+              <MenuItem key={i} value={c}>
+                {c}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <TextField
+          fullWidth
+          style={{ marginBottom: 16 }}
+          label="the topic of"
+        />
       </DialogContent>
     </Dialog>
   );
