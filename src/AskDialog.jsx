@@ -1,29 +1,32 @@
-import {Avatar, Card, CardHeader, CardContent, FormControl, InputLabel, Select, MenuItem, TextField, Typography} from "@material-ui/core";
-import React, {useState} from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
-import HelpIcon from '@material-ui/icons/Help';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField
+} from "@material-ui/core";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-  card: {
-    margin: 'auto',
-    backgroundColor: theme.palette.background.default,
-  },
   decision: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: '50%',
+    display: "flex",
+    flexDirection: "row",
+    height: "50%"
   },
   decisionContent: {
-    width: '50%',
-    display: 'flex',
+    width: "50%",
+    display: "flex",
     padding: 64,
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    alignItems: "center"
   },
   button: {
-    margin: 'auto'
+    margin: "auto"
   }
 }));
 
@@ -279,26 +282,32 @@ const countryList = [
   "Åland Islands"
 ];
 
-export default function Ask() {
+export default function AskDialog(props) {
   const classes = useStyles();
   const [country, setCountry] = useState(countryList[0]);
+  const { onClose, open } = props;
 
   return (
-    <Card className={classes.card}>
-      <CardContent style={{display: 'flex', flexDirection: 'column'}}>
-        <Typography gutterBottom variant="h5" component="h2">Ask</Typography>
-        <FormControl style={{margin: 16, flex: 1}}>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Ask</DialogTitle>
+      <DialogContent>
+        <FormControl style={{ margin: 16, flex: 1 }}>
           <InputLabel id="country-label">Someone from</InputLabel>
           <Select
             labelId="country-label"
             id="country-select"
             value={country}
-            onChange={e => setCountry(e.target.value)}>
-            {countryList.map(c => <MenuItem value={c}>{c}</MenuItem>)}
+            onChange={e => setCountry(e.target.value)}
+          >
+            {countryList.map((c, i) => (
+              <MenuItem key={i} value={c}>
+                {c}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
-        <TextField style={{margin: 16}} label="About"/>
-      </CardContent>
-    </Card>
-  )
+        <TextField style={{ margin: 16 }} label="About" />
+      </DialogContent>
+    </Dialog>
+  );
 }
