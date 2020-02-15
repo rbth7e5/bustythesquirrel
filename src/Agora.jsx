@@ -4,12 +4,14 @@ import {
   Card,
   CardContent,
   List,
+  ListItem,
   Toolbar,
   Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import AskDialog from "./AskDialog";
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,16 +23,21 @@ const useStyles = makeStyles(theme => ({
   content: {
     flex: 1,
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    padding: "0 32px"
   },
-  card: {
-    marginBottom: 32
+  listItem: {
+    marginBottom: 32,
+    padding: 16,
+    fontSize: 18
   },
   issuesView: {
     display: "flex",
     flex: 1,
     padding: 32,
-    flexDirection: "column"
+    flexDirection: "column",
+    maxHeight: "calc(100vh - 128px)",
+    overflow: "scroll"
   },
   issuesContent: {
     display: "flex",
@@ -40,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   divider: {
     width: 2,
     backgroundColor: "black",
-    margin: 8
+    margin: 32
   }
 }));
 
@@ -92,11 +99,14 @@ export default function Agora() {
           </Typography>
           <List>
             {questions.map((qns, i) => (
-              <Card key={i} className={classes.card}>
-                <CardContent>
-                  <Typography>{qns}</Typography>
-                </CardContent>
-              </Card>
+              <ListItem
+                button
+                component={Paper}
+                key={i}
+                className={classes.listItem}
+              >
+                {qns}
+              </ListItem>
             ))}
           </List>
         </div>
@@ -107,11 +117,14 @@ export default function Agora() {
           </Typography>
           <List>
             {issues.map((issue, i) => (
-              <Card key={i} className={classes.card}>
-                <CardContent>
-                  <Typography>{issue}</Typography>
-                </CardContent>
-              </Card>
+              <ListItem
+                button
+                component={Paper}
+                key={i}
+                className={classes.listItem}
+              >
+                {issue}
+              </ListItem>
             ))}
           </List>
         </div>
