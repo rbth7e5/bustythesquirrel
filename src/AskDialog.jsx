@@ -344,7 +344,7 @@ export default function AskDialog(props) {
           style={{ marginBottom: 16 }}
           label="the topic of"
           defaultValue={issue.topic}
-          onChange={(event) => setIssue({ ...issue, topic: event.target.value })}
+          onChange={event => setIssue({ ...issue, topic: event.target.value })}
         />
         <TextField
           fullWidth
@@ -353,7 +353,9 @@ export default function AskDialog(props) {
           style={{ marginBottom: 16, marginTop: 16 }}
           label="Remarks"
           defaultValue={issue.details}
-          onChange={(event) => setIssue({ ...issue, details: event.target.value })}
+          onChange={event =>
+            setIssue({ ...issue, details: event.target.value })
+          }
         />
       </DialogContent>
       <DialogActions>

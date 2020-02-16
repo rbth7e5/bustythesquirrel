@@ -12,7 +12,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
 import AskDialog, { categoryList, countryList } from "./AskDialog";
-import superagent from 'superagent'
+import superagent from "superagent";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import IssueDialog from "./IssueDialog";
@@ -65,19 +65,17 @@ export default function Agora() {
     category: categoryList[0],
     details: ""
   });
-  const [questions, setQuestions] = useState([])
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    superagent
-      .get('/find_issues_by_user')
-      .then((response) => {
-        setQuestions(response.body)
-      })
-  }, [issue])
+    superagent.get("/find_issues_by_user").then(response => {
+      setQuestions(response.body);
+    });
+  }, [issue]);
 
   const handlePublish = () => {
     superagent
-      .post('/send_issue')
+      .post("/send_issue")
       .send(issue)
       .then(() => {
         setIssue({
@@ -86,10 +84,10 @@ export default function Agora() {
           topic: "",
           category: null,
           details: ""
-        })
-        setAskOpen(false)
-      })
-  }
+        });
+        setAskOpen(false);
+      });
+  };
 
   const issues = [
     {
