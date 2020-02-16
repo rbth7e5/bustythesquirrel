@@ -1,6 +1,7 @@
 import {
   AppBar,
   Avatar,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -8,6 +9,7 @@ import {
   Dialog,
   IconButton,
   List,
+  ListSubheader,
   ListItem,
   ListItemText,
   Paper,
@@ -24,13 +26,25 @@ const useStyles = makeStyles(theme => ({
     position: "relative"
   },
   title: {
-    marginLeft: theme.spacing(2),
-    flex: 1
+    marginRight: "auto"
   },
   content: {
     flex: 1,
     display: "flex",
     flexDirection: "row",
+    padding: 32
+  },
+  sideBar: {
+    marginRight: 32
+  },
+  card: {
+    flex: 1,
+    width: 256
+  },
+  main: {
+    flexGrow: 1
+  },
+  message: {
     padding: 32
   }
 }));
@@ -39,6 +53,7 @@ export default function Conversation(props) {
   const classes = useStyles();
   const { issue, onClose, open } = props;
   const [message, setMessage] = useState(null);
+
   return (
     <Dialog
       fullScreen
@@ -54,11 +69,24 @@ export default function Conversation(props) {
           <Typography variant="h6" className={classes.title}>
             Topic: {issue.topic}
           </Typography>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              if (
+                window.confirm("Are you sure you want to end the conversation?")
+              ) {
+                onClose();
+              }
+            }}
+          >
+            End Conversation
+          </Button>
         </Toolbar>
       </AppBar>
       <div className={classes.content}>
-        <div>
-          <Card>
+        <div className={classes.sideBar}>
+          <Card className={classes.card}>
             <CardHeader
               avatar={<Avatar>I</Avatar>}
               title={`Looking for someone from ${issue.country}`}
@@ -73,11 +101,26 @@ export default function Conversation(props) {
             )}
           </Card>
           {issue.messages && issue.messages.length > 0 && (
-            <List>
-              {issue.messages.map(msg => (
-                <ListItem button onClick={() => setMessage(msg)}>
+            <List
+              style={{ marginTop: 32 }}
+              subheader={
+                <ListSubheader component="div" id="conversations">
+                  Conversation
+                </ListSubheader>
+              }
+            >
+              {issue.messages.map((msg, i) => (
+                <ListItem key={i} button onClick={() => setMessage(msg)}>
                   <ListItemText
-                    style={{ textOverflow: "ellipsis" }}
+                    primaryTypographyProps={{
+                      style: {
+                        width: 256,
+                        display: "inline-block",
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis"
+                      }
+                    }}
                     primary={msg.content}
                   />
                 </ListItem>
@@ -85,9 +128,12 @@ export default function Conversation(props) {
             </List>
           )}
         </div>
-        <div>
+        <div className={classes.main}>
+          <Typography gutterBottom variant="h5" component="h2">
+            Message
+          </Typography>
           {message && (
-            <Paper>
+            <Paper className={classes.message}>
               <Typography>{message.content}</Typography>
             </Paper>
           )}

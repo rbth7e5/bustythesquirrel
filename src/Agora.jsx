@@ -107,16 +107,6 @@ export default function Agora() {
       });
   };
 
-  // const issues = [
-  //   {
-  //     country: "Singapore",
-  //     tags: ["court", "politics", "law"],
-  //     topic: "The Death Penalty",
-  //     category: "have a discussion with me on",
-  //     details:
-  //       "Singapore seems like a really great country. It's economy is doing really well and it is really clean. However, I don't quite understand why such a first world country would retain such an inhumane punishment in its books."
-  //   }
-  // ];
   return (
     <div className={classes.root}>
       <AppBar position="static" color="secondary">
@@ -130,7 +120,16 @@ export default function Agora() {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => setAskOpen(true)}
+            onClick={() => {
+              setIssue({
+                country: null,
+                tags: [],
+                topic: "",
+                category: null,
+                details: ""
+              });
+              setAskOpen(true);
+            }}
           >
             Ask a Question
           </Button>
@@ -139,7 +138,7 @@ export default function Agora() {
       <div className={classes.content}>
         <div className={classes.issuesView}>
           <Typography gutterBottom variant="h5" component="h2">
-            Your Issues
+            Your Pitches
           </Typography>
           <List>
             {questions &&
@@ -166,7 +165,7 @@ export default function Agora() {
         <div className={classes.divider} />
         <div className={classes.issuesView}>
           <Typography gutterBottom variant="h5" component="h2">
-            Issues to Respond
+            Available Pitches
           </Typography>
           <List>
             {issues &&
