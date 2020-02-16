@@ -69,7 +69,7 @@ export default function Agora() {
       country: "Hong Kong",
       tags: ["politics"],
       topic: "2019 Hong Kong Protests",
-      category: "Help me understand"
+      category: "help me understand"
     }
   ];
   const issues = [
@@ -77,12 +77,12 @@ export default function Agora() {
       country: "Singapore",
       tags: ["court", "politics", "law"],
       topic: "The Death Penalty",
-      category: "Have a discussion with me on"
+      category: "have a discussion with me on"
     }
   ];
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="secondary">
         <Toolbar>
           <img
             src={require("./Logo_only.png")}
@@ -207,13 +207,13 @@ function getCountryImage(country) {
 
 function getCategoryImage(category) {
   switch (category) {
-    case "Change my mind on":
+    case "change my mind on":
       return require("./assets/change-mind.png");
-    case "Have a discussion with me on":
+    case "have a discussion with me on":
       return require("./assets/discussion.png");
-    case "Help me understand":
+    case "help me understand":
       return require("./assets/understand.png");
-    case "Share how they feel about":
+    case "share how they feel about":
       return require("./assets/feel.png");
     default:
       return require("./assets/perspective.png");

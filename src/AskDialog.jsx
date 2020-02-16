@@ -283,11 +283,11 @@ export const countryList = [
 ];
 
 export const categoryList = [
-  "Change my mind on",
-  "Have a discussion with me on",
-  "Help me understand",
-  "Share how they feel about",
-  "Share their perspectives on"
+  "change my mind on",
+  "have a discussion with me on",
+  "help me understand",
+  "share how they feel about",
+  "share their perspectives on"
 ];
 
 export default function AskDialog(props) {
@@ -306,7 +306,9 @@ export default function AskDialog(props) {
         }}
       >
         <FormControl fullWidth style={{ marginBottom: 16 }}>
-          <InputLabel id="country-label">I want someone from</InputLabel>
+          <InputLabel id="country-label">
+            I am looking for someone from
+          </InputLabel>
           <Select
             labelId="country-label"
             id="country-select"

@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Chip from "@material-ui/core/Chip";
 
 export default function IssueDialog(props) {
   const { onClose, open, issue } = props;
@@ -27,8 +28,13 @@ export default function IssueDialog(props) {
           }}
         >
           <DialogContentText>
-            I want someone from {issue.country} to {issue.category} the topic of{" "}
-            {issue.topic}
+            I am looking for someone from <Chip label={issue.country} />
+          </DialogContentText>
+          <DialogContentText>
+            to <Chip label={issue.category} />
+          </DialogContentText>
+          <DialogContentText>
+            the topic of <Chip label={issue.topic} />
           </DialogContentText>
         </DialogContent>
       </Dialog>
