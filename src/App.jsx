@@ -1,4 +1,5 @@
 import React from "react";
+import request from "superagent";
 import {
   BrowserRouter as Router,
   Switch,
@@ -41,6 +42,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+export const squirrelAuth = {
+  isAuthenticated: false,
+  authenticate(username, password, callback) {
+    request
+      .post("/login")
+      .send({ username: username, password: password })
+      .then(res => {
+        if (res.status === 200) {
+          this.isAuthenticated = true;
+          callback(res.body, null);
+        }
+      })
+      .catch(error => callback(null, error));
+    setTimeout(callback, 100);
+  },
+  signout(cb) {
+    this.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
+};
+
 function App() {
   const classes = useStyles();
   return (
@@ -51,9 +73,7 @@ function App() {
             <Route path="/welcome">
               <Welcome />
             </Route>
-            <PrivateRoute path="/">
-              <Agora />
-            </PrivateRoute>
+            <PrivateRoute path="/" component={Agora} />
           </Switch>
         </Router>
       </div>
@@ -65,13 +85,14 @@ function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={props =>
-        fakeAuth.isAuthenticated === true ? ( // TODO: Check with real auth here.
-          <Component {...props} />
-        ) : (
-          <Redirect to="/welcome" />
-        )
-      }
+      render={props => {
+        if (squirrelAuth.isAuthenticated === true) {
+          return (
+            // TODO: Check with real auth here.
+            <Component {...props} />
+          );
+        } else return <Redirect to="/welcome" />;
+      }}
     />
   );
 }

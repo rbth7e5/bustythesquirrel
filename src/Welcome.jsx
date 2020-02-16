@@ -1,65 +1,100 @@
 import {
   Button,
-  Card,
-  CardActions,
-  CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
   TextField,
   Typography
 } from "@material-ui/core";
-import React from "react";
+import { withRouter } from "react-router-dom";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { squirrelAuth } from "./App";
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
   card: {
     padding: 32,
-    margin: "auto",
-    backgroundColor: theme.palette.background.default
+    margin: "auto"
   },
   form: {
     display: "flex",
     flexDirection: "column"
   },
   textfield: {
-    marginBottom: 48
+    marginBottom: 24
   },
   button: {
+    margin: "auto"
+  },
+  title: {
     margin: "auto"
   }
 }));
 
-export default function Welcome() {
+function Welcome(props) {
   const classes = useStyles();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   return (
-    <Card className={classes.card}>
-      <CardContent style={{ padding: 8 }}>
-        <Typography className={classes.textfield} variant="h3" component="h1">
-          Welcome to Agora
-        </Typography>
-        <form className={classes.form}>
-          <TextField
-            className={classes.textfield}
-            label="Username"
-            variant="outlined"
-          />
-          <TextField
-            className={classes.textfield}
-            label="Password"
-            variant="outlined"
-          />
-        </form>
-      </CardContent>
-      <CardActions disableSpacing>
-        <Button
-          fullWidth
-          color="secondary"
-          className={classes.button}
-          variant="contained"
-          href="/askanswer"
-        >
-          Log me in!
-        </Button>
-      </CardActions>
-    </Card>
+    <div className={classes.root}>
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={true}
+        className={classes.card}
+      >
+        <img
+          src={require("./assets/Agora_Logo-04.png")}
+          alt="Agora"
+          height={128}
+          className={classes.title}
+        />
+        <DialogContent>
+          <form className={classes.form}>
+            <TextField
+              error={error}
+              className={classes.textfield}
+              label="Username"
+              variant="outlined"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
+            <TextField
+              error={error}
+              className={classes.textfield}
+              type="password"
+              label="Password"
+              variant="outlined"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              squirrelAuth.authenticate(username, password, (body, err) => {
+                if (err) {
+                  setError(true);
+                } else {
+                  props.history.push("/");
+                }
+              });
+            }}
+            color="secondary"
+            variant="contained"
+          >
+            Log me in!
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
+
+export default withRouter(Welcome);
