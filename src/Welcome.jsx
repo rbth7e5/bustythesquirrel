@@ -40,6 +40,16 @@ function Welcome(props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
+  const login = () => {
+    squirrelAuth.authenticate(username, password, (body, err) => {
+      if (err) {
+        setError(true);
+      } else {
+        props.history.push("/");
+      }
+    });
+  };
+
   return (
     <div className={classes.root}>
       <Dialog
@@ -76,19 +86,7 @@ function Welcome(props) {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => {
-              squirrelAuth.authenticate(username, password, (body, err) => {
-                if (err) {
-                  setError(true);
-                } else {
-                  props.history.push("/");
-                }
-              });
-            }}
-            color="secondary"
-            variant="contained"
-          >
+          <Button onClick={login} color="secondary" variant="contained">
             Log me in!
           </Button>
         </DialogActions>

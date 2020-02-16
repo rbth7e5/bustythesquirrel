@@ -65,8 +65,8 @@ export default function Agora() {
     category: categoryList[0],
     details: ""
   });
-  const [questions, setQuestions] = useState([])
-  const [issues, setIssues] = useState([])
+  const [questions, setQuestions] = useState([]);
+  const [issues, setIssues] = useState([]);
 
   useEffect(() => {
     superagent.get("/find_issues_by_user").then(response => {
@@ -75,12 +75,10 @@ export default function Agora() {
   }, [issue]);
 
   useEffect(() => {
-    superagent
-      .get('/find_issues_by_country')
-      .then((response) => {
-        setIssues(response.body)
-      })
-  })
+    superagent.get("/find_issues_by_country").then(response => {
+      setIssues(response.body);
+    });
+  });
 
   const handlePublish = () => {
     superagent
