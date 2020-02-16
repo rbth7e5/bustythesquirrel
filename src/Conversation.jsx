@@ -88,9 +88,7 @@ export default function Conversation(props) {
       .get("/get_messages")
       .query({ issueId: issue._id })
       .then(response => {
-        if (response.body && response.body.messages) {
-          setMessages(response.body.messages);
-        }
+        setMessages(response.body.messages);
       });
   }, [issue]);
 
