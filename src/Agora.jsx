@@ -131,19 +131,20 @@ export default function Agora() {
             Your Issues
           </Typography>
           <List>
-            {questions.map((qns, i) => (
-              <Issue
-                onClick={() => {
-                  setIssue(qns);
-                  setAskOpen(true);
-                }}
-                primary={qns.topic}
-                tags={qns.tags}
-                country={qns.country}
-                category={qns.category}
-                key={i}
-              />
-            ))}
+            {questions &&
+              questions.map((qns, i) => (
+                <Issue
+                  onClick={() => {
+                    setIssue(qns);
+                    setAskOpen(true);
+                  }}
+                  primary={qns.topic}
+                  tags={qns.tags}
+                  country={qns.country}
+                  category={qns.category}
+                  key={i}
+                />
+              ))}
           </List>
         </div>
         <div className={classes.divider} />
@@ -152,19 +153,20 @@ export default function Agora() {
             Issues to Respond
           </Typography>
           <List>
-            {issues.map((issue, i) => (
-              <Issue
-                onClick={() => {
-                  setIssue(issue);
-                  setIssueOpen(true);
-                }}
-                primary={issue.topic}
-                tags={issue.tags}
-                country={issue.country}
-                category={issue.category}
-                key={i}
-              />
-            ))}
+            {issues &&
+              issues.map((issue, i) => (
+                <Issue
+                  onClick={() => {
+                    setIssue(issue);
+                    setIssueOpen(true);
+                  }}
+                  primary={issue.topic}
+                  tags={issue.tags}
+                  country={issue.country}
+                  category={issue.category}
+                  key={i}
+                />
+              ))}
           </List>
         </div>
       </div>
@@ -195,9 +197,10 @@ function Issue(props) {
             <Typography gutterBottom variant="h5" component="h2">
               {primary}
             </Typography>
-            {tags.map((tag, i) => (
-              <Chip key={i} style={{ margin: 4 }} label={tag} />
-            ))}
+            {tags &&
+              tags.map((tag, i) => (
+                <Chip key={i} style={{ margin: 4 }} label={tag} />
+              ))}
           </div>
           <Avatar
             style={{ marginRight: 16, height: 80, width: 80 }}
