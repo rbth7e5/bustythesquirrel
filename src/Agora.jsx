@@ -16,6 +16,7 @@ import superagent from "superagent";
 import Avatar from "@material-ui/core/Avatar";
 import IssueDialog from "./IssueDialog";
 import Conversation from "./Conversation";
+import ResponseDialog from './ResponseDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,6 +60,7 @@ export default function Agora() {
   const [askOpen, setAskOpen] = useState(false);
   const [issueOpen, setIssueOpen] = useState(false);
   const [convoOpen, setConvoOpen] = useState(false);
+  const [initialResponseDialogOpen, setInitialResponseDialogOpen] = useState(false);
   const [issue, setIssue] = useState({
     _id: "",
     country: null,
@@ -104,8 +106,22 @@ export default function Agora() {
       .query({ id: issue._id })
       .then(res => {
         setIssueOpen(false);
+        setInitialResponseDialogOpen(true);
       });
   };
+
+  const handleInitialResponse = (content, issueId) => {
+    superagent
+    .post("/send_message")
+    .send({
+      content,
+      issueId
+    })
+    .then(() => {
+      setInitialResponseDialogOpen(false)
+      setConvoOpen(true)
+    })
+  }
 
   return (
     <div className={classes.root}>
@@ -207,6 +223,12 @@ export default function Agora() {
         open={convoOpen}
         issue={issue}
         onClose={() => setConvoOpen(false)}
+      />
+      <ResponseDialog
+        open={initialResponseDialogOpen}
+        issue={issue}
+        onClose={() => setInitialResponseDialogOpen(false)}
+        handleInitialResponse={handleInitialResponse}
       />
     </div>
   );
