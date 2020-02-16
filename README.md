@@ -6,7 +6,7 @@ Agora is a web platform that creates powerful conversations between individuals,
 
 
 
-### **Login Page**
+- ### **Login Page**
 ![Agora_Login_Page](src/assets/Agora_Login_Page.png) 
 
 
