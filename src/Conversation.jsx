@@ -21,7 +21,8 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import SendIcon from "@material-ui/icons/Send";
-import React, { useState } from "react";
+import superagent from "superagent";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -40,10 +41,6 @@ const useStyles = makeStyles(theme => ({
   sideBar: {
     marginRight: 32
   },
-  card: {
-    flex: 1,
-    width: 256
-  },
   main: {
     flexGrow: 1
   },
@@ -54,7 +51,13 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 16
+  },
+  messagesView: {
+    maxHeight: "calc(100vh - 340px)",
+    marginTop: 32,
+    overflow: "scroll"
   }
 }));
 
@@ -62,6 +65,32 @@ export default function Conversation(props) {
   const classes = useStyles();
   const { issue, onClose, open } = props;
   const [message, setMessage] = useState(null);
+  const [newMessage, setNewMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  const handleNewMessage = () => {
+    superagent
+      .post("/send_message")
+      .send({ content: newMessage, issueId: issue._id })
+      .then(() => {
+        setMessage({ content: newMessage });
+        superagent
+          .get("/get_messages")
+          .query({ issueId: issue._id })
+          .then(response => {
+            setMessages(response.body.messages);
+          });
+      });
+  };
+
+  useEffect(() => {
+    superagent
+      .get("/get_messages")
+      .query({ issueId: issue._id })
+      .then(response => {
+        setMessages(response.body.messages);
+      });
+  }, [issue]);
 
   return (
     <Dialog
@@ -95,7 +124,7 @@ export default function Conversation(props) {
       </AppBar>
       <div className={classes.content}>
         <div className={classes.sideBar}>
-          <Card className={classes.card}>
+          <Card>
             <CardHeader
               avatar={<Avatar>I</Avatar>}
               title={`Looking for someone from ${issue.country}`}
@@ -109,16 +138,21 @@ export default function Conversation(props) {
               </CardContent>
             )}
           </Card>
-          {issue.messages && issue.messages.length > 0 && (
+          {messages && messages.length > 0 && (
             <List
-              style={{ marginTop: 32 }}
+              component={Paper}
+              className={classes.messagesView}
               subheader={
-                <ListSubheader component="div" id="conversations">
+                <ListSubheader
+                  style={{ backgroundColor: "white" }}
+                  component="div"
+                  id="conversations"
+                >
                   Conversation
                 </ListSubheader>
               }
             >
-              {issue.messages.map((msg, i) => (
+              {messages.map((msg, i) => (
                 <ListItem key={i} button onClick={() => setMessage(msg)}>
                   <ListItemText
                     primaryTypographyProps={{
@@ -147,9 +181,11 @@ export default function Conversation(props) {
               fullWidth
               variant="outlined"
               placeholder="Send a new message"
+              value={newMessage}
+              onChange={e => setNewMessage(e.target.value)}
               endAdornment={
                 <InputAdornment position="end">
-                  <IconButton onClick={() => {}} edge="end">
+                  <IconButton onClick={handleNewMessage} edge="end">
                     <SendIcon />
                   </IconButton>
                 </InputAdornment>
