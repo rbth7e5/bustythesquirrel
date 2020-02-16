@@ -78,15 +78,32 @@ export default function Agora() {
       .then((response) => {
         setLoggedIn(true)
       })
+  })
 
-    if (isLoggedIn) {
-      superagent
-        .get('/find_issues_by_user')
-        .then((response) => {
-          setQuestions(response.body)
+  useEffect(() => {
+    superagent
+      .get('/find_issues_by_user')
+      .then((response) => {
+        setQuestions(response.body)
+      })
+  }, [issue])
+
+  const handlePublish = () => {
+    superagent
+      .post('/send_issue')
+      .send(issue)
+      .then(() => {
+        setIssue({
+          country: null,
+          tags: [],
+          topic: "",
+          category: null,
+          details: ""
         })
-    }
-  }, [isLoggedIn])
+        setAskOpen(false)
+        setLoggedIn(true)
+      })
+  }
 
   const issues = [
     {
@@ -165,6 +182,7 @@ export default function Agora() {
         setIssue={setIssue}
         open={askOpen}
         onClose={() => setAskOpen(false)}
+        onClick={() => handlePublish()}
       />
       <IssueDialog
         issue={issue}
