@@ -92,7 +92,7 @@ export default function Conversation(props) {
           setMessages(response.body.messages);
         }
       });
-  }, [issue]);
+  }, [issue, open]);
 
   return (
     <Dialog
