@@ -10,9 +10,9 @@ Agora is a web platform that creates powerful conversations between individuals,
 ![Agora_Login_Page](src/assets/Agora_Login_Page.png) 
 
 
-### **Landing Page**
+- ### **Landing Page**
 ![Agora Home Page](src/assets/Agora_Home_Page.png)
-- At Agora's landing page, users are able to view their own pitches as well as pitches available for them to respond to.
+##### At Agora's landing page, users are able to view their own pitches as well as pitches available for them to respond to.
 
 ### **Asking a Question**
 
