@@ -60,10 +60,11 @@ export default function Agora() {
   const [issueOpen, setIssueOpen] = useState(false);
   const [convoOpen, setConvoOpen] = useState(false);
   const [issue, setIssue] = useState({
-    country: countryList[0],
+    _id: "",
+    country: null,
     tags: [],
     topic: "",
-    category: categoryList[0],
+    category: null,
     details: ""
   });
   const [questions, setQuestions] = useState([]);
@@ -96,6 +97,16 @@ export default function Agora() {
         setAskOpen(false);
       });
   };
+
+  const handleResponse = () => {
+    console.log(issue)
+    superagent
+      .patch("/respond_issue")
+      .query({ id: issue._id })
+      .then((res) => {
+        setIssueOpen(false)
+      })
+  }
 
   // const issues = [
   //   {
@@ -192,6 +203,7 @@ export default function Agora() {
         issue={issue}
         open={issueOpen}
         onClose={() => setIssueOpen(false)}
+        handleResponse={handleResponse}
       />
       <Conversation
         open={convoOpen}

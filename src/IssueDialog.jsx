@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function IssueDialog(props) {
   const classes = useStyles();
-  const { onClose, open, issue } = props;
+  const { onClose, open, issue, handleResponse } = props;
   if (issue) {
     return (
       <Dialog open={open} onClose={onClose}>
@@ -53,7 +53,7 @@ export default function IssueDialog(props) {
           </DialogContent>
         ) : null}
         <DialogActions>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={handleResponse}>
             Respond
           </Button>
         </DialogActions>
