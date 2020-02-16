@@ -8,16 +8,19 @@ import {
   Chip,
   Dialog,
   IconButton,
+  InputAdornment,
   List,
   ListSubheader,
   ListItem,
   ListItemText,
   Paper,
   Slide,
+  OutlinedInput,
   Toolbar,
   Typography
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import SendIcon from "@material-ui/icons/Send";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -46,6 +49,12 @@ const useStyles = makeStyles(theme => ({
   },
   message: {
     padding: 32
+  },
+  messageTitle: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   }
 }));
 
@@ -129,9 +138,24 @@ export default function Conversation(props) {
           )}
         </div>
         <div className={classes.main}>
-          <Typography gutterBottom variant="h5" component="h2">
-            Message
-          </Typography>
+          <div className={classes.messageTitle}>
+            <Typography gutterBottom variant="h5" component="h2">
+              Message
+            </Typography>
+            <OutlinedInput
+              style={{ marginLeft: 32, backgroundColor: "white" }}
+              fullWidth
+              variant="outlined"
+              placeholder="Send a new message"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton onClick={() => {}} edge="end">
+                    <SendIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </div>
           {message && (
             <Paper className={classes.message}>
               <Typography>{message.content}</Typography>
