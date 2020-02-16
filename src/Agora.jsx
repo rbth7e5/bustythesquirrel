@@ -80,7 +80,7 @@ export default function Agora() {
       .then((response) => {
         setIssues(response.body)
       })
-  })
+  }, [questions])
 
   const handlePublish = () => {
     superagent
