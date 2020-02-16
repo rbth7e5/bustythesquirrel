@@ -77,7 +77,9 @@ export default function Agora() {
       country: "Singapore",
       tags: ["court", "politics", "law"],
       topic: "The Death Penalty",
-      category: "have a discussion with me on"
+      category: "have a discussion with me on",
+      details:
+        "Singapore seems like a really great country. It's economy is doing really well and it is really clean. However, I don't quite understand why such a first world country would retain such an inhumane punishment in its books."
     }
   ];
   return (

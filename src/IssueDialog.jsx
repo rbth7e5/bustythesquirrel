@@ -1,17 +1,13 @@
 import {
+  Button,
+  Chip,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  TextField
+  DialogTitle
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
+import React from "react";
 
 export default function IssueDialog(props) {
   const { onClose, open, issue } = props;
@@ -19,14 +15,7 @@ export default function IssueDialog(props) {
     return (
       <Dialog open={open} onClose={onClose}>
         <DialogTitle>Issue Details</DialogTitle>
-        <DialogContent
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            minWidth: 400,
-            padding: 32
-          }}
-        >
+        <DialogContent>
           <DialogContentText>
             I am looking for someone from <Chip label={issue.country} />
           </DialogContentText>
@@ -37,6 +26,19 @@ export default function IssueDialog(props) {
             the topic of <Chip label={issue.topic} />
           </DialogContentText>
         </DialogContent>
+        {issue.details && issue.details !== "" ? (
+          <DialogContent>
+            <DialogContentText style={{ fontWeight: "bold" }}>
+              Remarks
+            </DialogContentText>
+            <DialogContentText>{issue.details}</DialogContentText>
+          </DialogContent>
+        ) : null}
+        <DialogActions>
+          <Button variant="contained" color="secondary">
+            Respond
+          </Button>
+        </DialogActions>
       </Dialog>
     );
   } else return null;

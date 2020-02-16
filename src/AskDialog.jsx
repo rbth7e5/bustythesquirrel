@@ -6,7 +6,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  TextField
+  TextField,
+  Button,
+  DialogActions
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -348,10 +350,15 @@ export default function AskDialog(props) {
           multiline
           variant="outlined"
           style={{ marginBottom: 16, marginTop: 16 }}
-          label="Other Details"
+          label="Remarks"
           defaultValue={issue.details}
         />
       </DialogContent>
+      <DialogActions>
+        <Button variant="contained" color="secondary">
+          Publish
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
