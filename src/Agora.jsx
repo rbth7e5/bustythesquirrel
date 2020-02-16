@@ -66,19 +66,6 @@ export default function Agora() {
     details: ""
   });
   const [questions, setQuestions] = useState([])
-  const [isLoggedIn, setLoggedIn] = useState(false)
-
-  useEffect(() => {
-    superagent
-      .post('/login')
-      .send({
-        username: "elstonayx",
-        password: "mypassword"
-      })
-      .then((response) => {
-        setLoggedIn(true)
-      })
-  })
 
   useEffect(() => {
     superagent
@@ -101,7 +88,6 @@ export default function Agora() {
           details: ""
         })
         setAskOpen(false)
-        setLoggedIn(true)
       })
   }
 
