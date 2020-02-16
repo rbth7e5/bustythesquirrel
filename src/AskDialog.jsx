@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const countryList = [
+export const countryList = [
   "Afghanistan",
   "Albania",
   "Algeria",
@@ -282,7 +282,7 @@ const countryList = [
   "Åland Islands"
 ];
 
-const categoryList = [
+export const categoryList = [
   "Change my mind on",
   "Have a discussion with me on",
   "Help me understand",
@@ -292,9 +292,7 @@ const categoryList = [
 
 export default function AskDialog(props) {
   const classes = useStyles();
-  const [country, setCountry] = useState(countryList[0]);
-  const [category, setCategory] = useState(categoryList[0]);
-  const { onClose, open } = props;
+  const { onClose, open, issue, setIssue } = props;
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -312,8 +310,8 @@ export default function AskDialog(props) {
           <Select
             labelId="country-label"
             id="country-select"
-            value={country}
-            onChange={e => setCountry(e.target.value)}
+            value={issue.country}
+            onChange={e => setIssue({ ...issue, country: e.target.value })}
           >
             {countryList.map((c, i) => (
               <MenuItem key={i} value={c}>
@@ -327,8 +325,8 @@ export default function AskDialog(props) {
           <Select
             labelId="category-label"
             id="category-select"
-            value={category}
-            onChange={e => setCategory(e.target.value)}
+            value={issue.category}
+            onChange={e => setIssue({ ...issue, category: e.target.value })}
           >
             {categoryList.map((c, i) => (
               <MenuItem key={i} value={c}>
@@ -341,6 +339,7 @@ export default function AskDialog(props) {
           fullWidth
           style={{ marginBottom: 16 }}
           label="the topic of"
+          defaultValue={issue.topic}
         />
         <TextField
           fullWidth
@@ -348,6 +347,7 @@ export default function AskDialog(props) {
           variant="outlined"
           style={{ marginBottom: 16, marginTop: 16 }}
           label="Other Details"
+          defaultValue={issue.details}
         />
       </DialogContent>
     </Dialog>

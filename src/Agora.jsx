@@ -11,8 +11,10 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
-import AskDialog from "./AskDialog";
+import AskDialog, { categoryList, countryList } from "./AskDialog";
 import Paper from "@material-ui/core/Paper";
+import Avatar from "@material-ui/core/Avatar";
+import IssueDialog from "./IssueDialog";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,31 +56,29 @@ const useStyles = makeStyles(theme => ({
 export default function Agora() {
   const classes = useStyles();
   const [askOpen, setAskOpen] = useState(false);
+  const [issueOpen, setIssueOpen] = useState(false);
+  const [issue, setIssue] = useState({
+    country: countryList[0],
+    tags: [],
+    topic: "",
+    category: categoryList[0],
+    details: ""
+  });
   const questions = [
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?",
-    "How many cows does it take to moo?"
+    {
+      country: "Hong Kong",
+      tags: ["politics"],
+      topic: "2019 Hong Kong Protests",
+      category: "Help me understand"
+    }
   ];
   const issues = [
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?",
-    "Will mermaids drink lake water?"
+    {
+      country: "Singapore",
+      tags: ["court", "politics", "law"],
+      topic: "The Death Penalty",
+      category: "Have a discussion with me on"
+    }
   ];
   return (
     <div className={classes.root}>
@@ -107,8 +107,14 @@ export default function Agora() {
           <List>
             {questions.map((qns, i) => (
               <Issue
-                primary={qns}
-                tags={["politics", "trump", "cake"]}
+                onClick={() => {
+                  setIssue(qns);
+                  setAskOpen(true);
+                }}
+                primary={qns.topic}
+                tags={qns.tags}
+                country={qns.country}
+                category={qns.category}
                 key={i}
               />
             ))}
@@ -122,34 +128,94 @@ export default function Agora() {
           <List>
             {issues.map((issue, i) => (
               <Issue
-                primary={issue}
-                tags={["cows", "milk", "mushrooms"]}
+                onClick={() => {
+                  setIssue(issue);
+                  setIssueOpen(true);
+                }}
+                primary={issue.topic}
+                tags={issue.tags}
+                country={issue.country}
+                category={issue.category}
                 key={i}
               />
             ))}
           </List>
         </div>
       </div>
-      <AskDialog open={askOpen} onClose={() => setAskOpen(false)} />
+      <AskDialog
+        issue={issue}
+        setIssue={setIssue}
+        open={askOpen}
+        onClose={() => setAskOpen(false)}
+      />
+      <IssueDialog
+        issue={issue}
+        open={issueOpen}
+        onClose={() => setIssueOpen(false)}
+      />
     </div>
   );
 }
 
 function Issue(props) {
   const classes = useStyles();
-  const { primary, tags, category, country } = props;
+  const { onClick, primary, tags, category, country } = props;
   return (
-    <Card className={classes.listItem}>
+    <Card onClick={onClick} className={classes.listItem}>
       <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {primary}
-          </Typography>
-          {tags.map(tag => (
-            <Chip style={{ margin: 4 }} label={tag} />
-          ))}
+        <CardContent style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{ marginRight: "auto" }}>
+            <Typography gutterBottom variant="h5" component="h2">
+              {primary}
+            </Typography>
+            {tags.map((tag, i) => (
+              <Chip key={i} style={{ margin: 4 }} label={tag} />
+            ))}
+          </div>
+          <Avatar
+            style={{ marginRight: 16, height: 80, width: 80 }}
+            alt={category}
+            src={getCategoryImage(category)}
+          />
+          <Avatar
+            style={{ height: 80, width: 80 }}
+            alt={country}
+            src={getCountryImage(country)}
+          />
         </CardContent>
       </CardActionArea>
     </Card>
   );
+}
+
+function getCountryImage(country) {
+  switch (country) {
+    case "Maldives":
+      return require("./assets/maldives.png");
+    case "Israel":
+      return require("./assets/israel.png");
+    case "China":
+      return require("./assets/china.png");
+    case "Hong Kong":
+      return require("./assets/hong-kong.png");
+    case "United States of America (the)":
+      return require("./assets/usa.png");
+    default:
+      return require("./assets/singapore.png");
+  }
+}
+
+function getCategoryImage(category) {
+  switch (category) {
+    case "Change my mind on":
+      return require("./assets/change-mind.png");
+    case "Have a discussion with me on":
+      return require("./assets/discussion.png");
+    case "Help me understand":
+      return require("./assets/understand.png");
+    case "Share how they feel about":
+      return require("./assets/feel.png");
+    default:
+      return require("./assets/perspective.png");
+  }
 }
