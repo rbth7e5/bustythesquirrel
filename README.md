@@ -26,8 +26,14 @@ Agora is a web platform that creates powerful conversations between individuals,
 ![Agora_Asking_A_Question](src/assets/Categories_Of_Questions.png)
 
 
+
 ### **Responding to an Issue**
 
 - Users are able to respond to issues happening in their own country that are posted by other users
 
 ![Agora_Responding_to_Issue](src/assets/Respond_to_an_issue.png)
+
+### **Conversation Page**
+- Upon responding to an issue or getting the user's issue being responded to, it brings the user to a conversation page
+
+![Agora_Responding_to_Issue](src/assets/Agora_Conversation_Page.png)
