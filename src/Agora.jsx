@@ -208,30 +208,30 @@ export default function Agora() {
           </List>
         </div>
       </div>
-      <AskDialog
+      {askOpen && <AskDialog
         issue={issue}
         setIssue={setIssue}
         open={askOpen}
         onClose={() => setAskOpen(false)}
         onClick={() => handlePublish()}
-      />
-      <IssueDialog
+      />}
+      {issueOpen && <IssueDialog
         issue={issue}
         open={issueOpen}
         onClose={() => setIssueOpen(false)}
         handleResponse={handleResponse}
-      />
-      <Conversation
+      />}
+      {convoOpen && <Conversation
         open={convoOpen}
         issue={issue}
         onClose={() => setConvoOpen(false)}
-      />
-      <ResponseDialog
+      />}
+      {initialResponseDialogOpen && <ResponseDialog
         open={initialResponseDialogOpen}
         issue={issue}
         onClose={() => setInitialResponseDialogOpen(false)}
         handleInitialResponse={handleInitialResponse}
-      />
+      />}
     </div>
   );
 }
