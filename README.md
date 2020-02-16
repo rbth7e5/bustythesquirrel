@@ -50,10 +50,10 @@ Due to the nature of the platform, we had to make sure that we think of a produc
 
 We managed to think of a fully formed idea within a few hours and hacked away without much problems! We feel quite accomplished of the full stack platform as it got to push the limits of everyone's skills.
 
-**What we learned**
+**What we learned?**
 
 We learnt the importance of having a well thought out user flow for whatever you are building, and communicating that flow effectively among the team. Doing this before diving into building the product helps to ensure that everyone is on the same page, and avoids situations where you have to backtrack.
 
-**What's next for Agora**
+**What's next for Agora?**
 
 There are a number of other exciting features that we did not have time to build out in the course of this hackathon but would like to explore moving forward. Such features include having group discussions between multiple people, and customized question prompts based on the users' country.
