@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
-import AskDialog, { categoryList, countryList } from "./AskDialog";
+import AskDialog from "./AskDialog";
 import superagent from "superagent";
 import Avatar from "@material-ui/core/Avatar";
 import IssueDialog from "./IssueDialog";
@@ -99,14 +99,13 @@ export default function Agora() {
   };
 
   const handleResponse = () => {
-    console.log(issue)
     superagent
       .patch("/respond_issue")
       .query({ id: issue._id })
-      .then((res) => {
-        setIssueOpen(false)
-      })
-  }
+      .then(res => {
+        setIssueOpen(false);
+      });
+  };
 
   // const issues = [
   //   {

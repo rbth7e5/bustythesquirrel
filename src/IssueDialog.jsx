@@ -53,7 +53,11 @@ export default function IssueDialog(props) {
           </DialogContent>
         ) : null}
         <DialogActions>
-          <Button variant="contained" color="secondary" onClick={handleResponse}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleResponse}
+          >
             Respond
           </Button>
         </DialogActions>
