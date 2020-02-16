@@ -37,5 +37,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://hack-at-cewit-nyancat.herokuapp.com"
+  "proxy": "http://localhost:3030"
 }

@@ -66,6 +66,7 @@ export default function Agora() {
     details: ""
   });
   const [questions, setQuestions] = useState([])
+  const [isLoggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
     superagent
@@ -75,17 +76,17 @@ export default function Agora() {
         password: "mypassword"
       })
       .then((response) => {
-        console.log(response)
+        setLoggedIn(true)
       })
-    superagent
-      .get('/find_issue_by_country')
-      .send({
-        country: "Singapore"
-      })
-      .then((response) => {
-        setQuestions(response)
-      })
-  })
+
+    if (isLoggedIn) {
+      superagent
+        .get('/find_issues_by_user')
+        .then((response) => {
+          setQuestions(response.body)
+        })
+    }
+  }, [isLoggedIn])
 
   const issues = [
     {
