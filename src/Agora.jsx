@@ -13,9 +13,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
 import AskDialog, { categoryList, countryList } from "./AskDialog";
 import superagent from "superagent";
-import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import IssueDialog from "./IssueDialog";
+import Conversation from "./Conversation";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,6 +58,7 @@ export default function Agora() {
   const classes = useStyles();
   const [askOpen, setAskOpen] = useState(false);
   const [issueOpen, setIssueOpen] = useState(false);
+  const [convoOpen, setConvoOpen] = useState(false);
   const [issue, setIssue] = useState({
     country: countryList[0],
     tags: [],
@@ -78,7 +79,7 @@ export default function Agora() {
     superagent.get("/find_issues_by_country").then(response => {
       setIssues(response.body);
     });
-  });
+  }, [questions]);
 
   const handlePublish = () => {
     superagent
@@ -134,9 +135,14 @@ export default function Agora() {
             {questions &&
               questions.map((qns, i) => (
                 <Issue
+                  hasConvo={!!qns.responder}
                   onClick={() => {
                     setIssue(qns);
-                    setAskOpen(true);
+                    if (qns.responder) {
+                      setConvoOpen(true);
+                    } else {
+                      setAskOpen(true);
+                    }
                   }}
                   primary={qns.topic}
                   tags={qns.tags}
@@ -156,9 +162,14 @@ export default function Agora() {
             {issues &&
               issues.map((issue, i) => (
                 <Issue
+                  hasConvo={!!issue.responder}
                   onClick={() => {
                     setIssue(issue);
-                    setIssueOpen(true);
+                    if (issue.responder) {
+                      setConvoOpen(true);
+                    } else {
+                      setIssueOpen(true);
+                    }
                   }}
                   primary={issue.topic}
                   tags={issue.tags}
@@ -182,15 +193,24 @@ export default function Agora() {
         open={issueOpen}
         onClose={() => setIssueOpen(false)}
       />
+      <Conversation
+        open={convoOpen}
+        issue={issue}
+        onClose={() => setConvoOpen(false)}
+      />
     </div>
   );
 }
 
 function Issue(props) {
   const classes = useStyles();
-  const { onClick, primary, tags, category, country } = props;
+  const { onClick, primary, tags, category, country, hasConvo } = props;
   return (
-    <Card onClick={onClick} className={classes.listItem}>
+    <Card
+      onClick={onClick}
+      className={classes.listItem}
+      style={hasConvo ? null : { backgroundColor: "#eeeeee" }}
+    >
       <CardActionArea>
         <CardContent style={{ display: "flex", flexDirection: "row" }}>
           <div style={{ marginRight: "auto" }}>

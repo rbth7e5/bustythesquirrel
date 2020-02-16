@@ -11,7 +11,6 @@ import Welcome from "./Welcome";
 
 import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import AskDialog from "./AskDialog";
 import Agora from "./Agora";
 
 const theme = createMuiTheme({

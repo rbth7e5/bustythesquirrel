@@ -3,8 +3,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  TextField,
-  Typography
+  TextField
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import React, { useState } from "react";

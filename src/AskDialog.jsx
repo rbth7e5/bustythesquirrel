@@ -10,27 +10,7 @@ import {
   Button,
   DialogActions
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles(theme => ({
-  decision: {
-    display: "flex",
-    flexDirection: "row",
-    height: "50%"
-  },
-  decisionContent: {
-    width: "50%",
-    display: "flex",
-    padding: 64,
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    alignItems: "center"
-  },
-  button: {
-    margin: "auto"
-  }
-}));
+import React from "react";
 
 export const countryList = [
   "Afghanistan",
@@ -293,7 +273,6 @@ export const categoryList = [
 ];
 
 export default function AskDialog(props) {
-  const classes = useStyles();
   const { onClose, open, issue, setIssue, onClick } = props;
 
   return (
