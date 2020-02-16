@@ -10,8 +10,9 @@ import {
   Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AskDialog, { categoryList, countryList } from "./AskDialog";
+import superagent from 'superagent'
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import IssueDialog from "./IssueDialog";
@@ -64,14 +65,46 @@ export default function Agora() {
     category: categoryList[0],
     details: ""
   });
-  const questions = [
-    {
-      country: "Hong Kong",
-      tags: ["politics"],
-      topic: "2019 Hong Kong Protests",
-      category: "help me understand"
-    }
-  ];
+  const [questions, setQuestions] = useState([])
+  const [isLoggedIn, setLoggedIn] = useState(false)
+
+  useEffect(() => {
+    superagent
+      .post('/login')
+      .send({
+        username: "elstonayx",
+        password: "mypassword"
+      })
+      .then((response) => {
+        setLoggedIn(true)
+      })
+  })
+
+  useEffect(() => {
+    superagent
+      .get('/find_issues_by_user')
+      .then((response) => {
+        setQuestions(response.body)
+      })
+  }, [issue])
+
+  const handlePublish = () => {
+    superagent
+      .post('/send_issue')
+      .send(issue)
+      .then(() => {
+        setIssue({
+          country: null,
+          tags: [],
+          topic: "",
+          category: null,
+          details: ""
+        })
+        setAskOpen(false)
+        setLoggedIn(true)
+      })
+  }
+
   const issues = [
     {
       country: "Singapore",
@@ -149,6 +182,7 @@ export default function Agora() {
         setIssue={setIssue}
         open={askOpen}
         onClose={() => setAskOpen(false)}
+        onClick={() => handlePublish()}
       />
       <IssueDialog
         issue={issue}
