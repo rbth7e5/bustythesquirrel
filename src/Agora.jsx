@@ -76,13 +76,31 @@ export default function Agora() {
 
   useEffect(() => {
     superagent.get("/find_issues_by_user").then(response => {
-      setQuestions(response.body);
+      if (response.status === 200 && response.body) {
+        response.body.sort((a, b) => {
+          if (a.responder) {
+            return -1;
+          } else if (b.responder) {
+            return 1;
+          } else return 0;
+        });
+        setQuestions(response.body);
+      }
     });
   }, [issue]);
 
   useEffect(() => {
     superagent.get("/find_issues_by_country").then(response => {
-      setIssues(response.body);
+      if (response.status === 200 && response.body) {
+        response.body.sort((a, b) => {
+          if (a.responder) {
+            return -1;
+          } else if (b.responder) {
+            return 1;
+          } else return 0;
+        });
+        setIssues(response.body);
+      }
     });
   }, [questions]);
 
@@ -208,30 +226,38 @@ export default function Agora() {
           </List>
         </div>
       </div>
-      {askOpen && <AskDialog
-        issue={issue}
-        setIssue={setIssue}
-        open={askOpen}
-        onClose={() => setAskOpen(false)}
-        onClick={() => handlePublish()}
-      />}
-      {issueOpen && <IssueDialog
-        issue={issue}
-        open={issueOpen}
-        onClose={() => setIssueOpen(false)}
-        handleResponse={handleResponse}
-      />}
-      {convoOpen && <Conversation
-        open={convoOpen}
-        issue={issue}
-        onClose={() => setConvoOpen(false)}
-      />}
-      {initialResponseDialogOpen && <ResponseDialog
-        open={initialResponseDialogOpen}
-        issue={issue}
-        onClose={() => setInitialResponseDialogOpen(false)}
-        handleInitialResponse={handleInitialResponse}
-      />}
+      {askOpen && (
+        <AskDialog
+          issue={issue}
+          setIssue={setIssue}
+          open={askOpen}
+          onClose={() => setAskOpen(false)}
+          onClick={() => handlePublish()}
+        />
+      )}
+      {issueOpen && (
+        <IssueDialog
+          issue={issue}
+          open={issueOpen}
+          onClose={() => setIssueOpen(false)}
+          handleResponse={handleResponse}
+        />
+      )}
+      {convoOpen && (
+        <Conversation
+          open={convoOpen}
+          issue={issue}
+          onClose={() => setConvoOpen(false)}
+        />
+      )}
+      {initialResponseDialogOpen && (
+        <ResponseDialog
+          open={initialResponseDialogOpen}
+          issue={issue}
+          onClose={() => setInitialResponseDialogOpen(false)}
+          handleInitialResponse={handleInitialResponse}
+        />
+      )}
     </div>
   );
 }
