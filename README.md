@@ -17,7 +17,7 @@ At Agora's landing page, users are able to view their own pitches as well as pit
 
 - Users are able to ask questions on controversial topics to obtain a first-hand account from another user located in the region
 
-![Agora_Asking_A_Question](src/assets/Asking_A_Question.png)
+![Agora_Asking_A_Question](src/assets/Asking_A_Question_new.png)
 
 - ### **Question Prompts**
 
