@@ -15,16 +15,9 @@ At Agora's landing page, users are able to view their own pitches as well as pit
 
 - ### **Asking a Question**
 
-- Users are able to ask questions on controversial topics to obtain a first-hand account from another user located in the region
-
 ![Agora_Asking_A_Question](src/assets/Asking_A_Question_new.png)
 
-- ### **Question Prompts**
-
-
-
-
-
+- Users are able to create their own pitch by asking questions using question prompts on controversial topics. This allows users to obtain a first-hand account of an incident located abroad from another user located in that region.
 
 ### **Responding to an Issue**
 
