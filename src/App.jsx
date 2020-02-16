@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import "./App.css";
 import Welcome from "./Welcome";
 
@@ -43,16 +48,31 @@ function App() {
       <div className={classes.root}>
         <Router>
           <Switch>
-            <Route path="/askanswer">
-              <AskDialog />
+            <Route path="/welcome">
+              <Welcome />
             </Route>
-            <Route path="/">
+            <PrivateRoute path="/">
               <Agora />
-            </Route>
+            </PrivateRoute>
           </Switch>
         </Router>
       </div>
     </ThemeProvider>
+  );
+}
+
+function PrivateRoute({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        fakeAuth.isAuthenticated === true ? ( // TODO: Check with real auth here.
+          <Component {...props} />
+        ) : (
+          <Redirect to="/welcome" />
+        )
+      }
+    />
   );
 }
 
