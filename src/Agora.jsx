@@ -10,8 +10,9 @@ import {
   Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AskDialog, { categoryList, countryList } from "./AskDialog";
+import superagent from 'superagent'
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import IssueDialog from "./IssueDialog";
@@ -64,14 +65,28 @@ export default function Agora() {
     category: categoryList[0],
     details: ""
   });
-  const questions = [
-    {
-      country: "Hong Kong",
-      tags: ["politics"],
-      topic: "2019 Hong Kong Protests",
-      category: "help me understand"
-    }
-  ];
+  const [questions, setQuestions] = useState([])
+
+  useEffect(() => {
+    superagent
+      .post('/login')
+      .send({
+        username: "elstonayx",
+        password: "mypassword"
+      })
+      .then((response) => {
+        console.log(response)
+      })
+    superagent
+      .get('/find_issue_by_country')
+      .send({
+        country: "Singapore"
+      })
+      .then((response) => {
+        setQuestions(response)
+      })
+  })
+
   const issues = [
     {
       country: "Singapore",
