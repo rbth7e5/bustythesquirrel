@@ -42,11 +42,11 @@ Agora is an online platform that creates powerful conversations between individu
 
 We used the MERN stack to build our product as we felt that it was the most flexible stack that was comfortable for all our developers. We spent the night on Friday ideating and refining on our idea once we managed to think of something that everyone was happy with, then spent the next two days hacking away.
 
-***Challenges we ran into
+**Challenges we ran into**
 
 Due to the nature of the platform, we had to make sure that we think of a product that could strike a balance between privacy and the quality of conversations held on our platform. We spent couple of days thinking of ways to ensure that users would enjoy using our platform without compromising the anonymity of the platform.
 
-***Accomplishments that we're proud of
+**Accomplishments that we're proud of**
 
 We managed to think of a fully formed idea within a few hours and hacked away without much problems! We feel quite accomplished of the full stack platform as it got to push the limits of everyone's skills.
 
