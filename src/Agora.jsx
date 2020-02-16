@@ -65,13 +65,22 @@ export default function Agora() {
     category: categoryList[0],
     details: ""
   });
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState([])
+  const [issues, setIssues] = useState([])
 
   useEffect(() => {
     superagent.get("/find_issues_by_user").then(response => {
       setQuestions(response.body);
     });
   }, [issue]);
+
+  useEffect(() => {
+    superagent
+      .get('/find_issues_by_country')
+      .then((response) => {
+        setIssues(response.body)
+      })
+  })
 
   const handlePublish = () => {
     superagent
@@ -89,16 +98,16 @@ export default function Agora() {
       });
   };
 
-  const issues = [
-    {
-      country: "Singapore",
-      tags: ["court", "politics", "law"],
-      topic: "The Death Penalty",
-      category: "have a discussion with me on",
-      details:
-        "Singapore seems like a really great country. It's economy is doing really well and it is really clean. However, I don't quite understand why such a first world country would retain such an inhumane punishment in its books."
-    }
-  ];
+  // const issues = [
+  //   {
+  //     country: "Singapore",
+  //     tags: ["court", "politics", "law"],
+  //     topic: "The Death Penalty",
+  //     category: "have a discussion with me on",
+  //     details:
+  //       "Singapore seems like a really great country. It's economy is doing really well and it is really clean. However, I don't quite understand why such a first world country would retain such an inhumane punishment in its books."
+  //   }
+  // ];
   return (
     <div className={classes.root}>
       <AppBar position="static" color="secondary">
