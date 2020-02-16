@@ -4,25 +4,25 @@
 
 Agora is a web platform that creates powerful conversations between individuals, wherevever they are in the world. 
 
-
-
 - ### **Login Page**
 ![Agora_Login_Page](src/assets/Agora_Login_Page.png) 
 
 
 - ### **Landing Page**
 ![Agora Home Page](src/assets/Agora_Home_Page.png)
-##### At Agora's landing page, users are able to view their own pitches as well as pitches available for them to respond to.
 
-### **Asking a Question**
+At Agora's landing page, users are able to view their own pitches as well as pitches available for them to respond to.
+
+- ### **Asking a Question**
 
 - Users are able to ask questions on controversial topics to obtain a first-hand account from another user located in the region
 
 ![Agora_Asking_A_Question](src/assets/Asking_A_Question.png)
 
-- Users are able to ask questions of these categories as shown below
+- ### **Question Prompts**
 
-![Agora_Asking_A_Question](src/assets/Categories_Of_Questions.png)
+
+
 
 
 
