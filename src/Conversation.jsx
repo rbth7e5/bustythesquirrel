@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Conversation(props) {
   const classes = useStyles();
-  const { issue, onClose, open } = props;
+  const { issue, onClose, open, title } = props;
   const [message, setMessage] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -105,7 +105,7 @@ export default function Conversation(props) {
             <CloseIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Topic: {issue.topic}
+            {title}
           </Typography>
           <Button
             variant="contained"
@@ -128,8 +128,11 @@ export default function Conversation(props) {
             <CardHeader
               avatar={<Avatar>I</Avatar>}
               title={`Looking for someone from ${issue.country}`}
-              subheader={`to ${issue.category} the topic`}
+              subheader={`to ${issue.category} the topic of`}
             />
+            <Typography style={{ marginLeft: 20, fontWeight: "bold" }}>
+              {issue.topic}
+            </Typography>
             {issue.tags && issue.tags.length > 0 && (
               <CardContent>
                 {issue.tags.map((tag, i) => (

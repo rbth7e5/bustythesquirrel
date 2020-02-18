@@ -73,6 +73,7 @@ export default function Agora() {
   });
   const [questions, setQuestions] = useState([]);
   const [issues, setIssues] = useState([]);
+  const [convoTitle, setConvoTitle] = useState("Responding to");
 
   useEffect(() => {
     superagent.get("/find_issues_by_user").then(response => {
@@ -139,6 +140,7 @@ export default function Agora() {
       })
       .then(() => {
         setInitialResponseDialogOpen(false);
+        setIssue({ ...issue, responder: "hackhackhack" });
         setConvoOpen(true);
       });
   };
@@ -184,6 +186,7 @@ export default function Agora() {
                   onClick={() => {
                     setIssue(qns);
                     if (qns.responder) {
+                      setConvoTitle("Getting Responses from");
                       setConvoOpen(true);
                     } else {
                       setAskOpen(true);
@@ -210,10 +213,23 @@ export default function Agora() {
                   hasConvo={!!issue.responder}
                   onClick={() => {
                     setIssue(issue);
+                    const numConvo = issues.reduce((accum, current) => {
+                      if (current.responder) {
+                        return accum + 1;
+                      } else return accum;
+                    }, 0);
+                    console.log(numConvo);
                     if (issue.responder) {
+                      setConvoTitle("Responding to");
                       setConvoOpen(true);
                     } else {
-                      setIssueOpen(true);
+                      if (numConvo > 0) {
+                        alert(
+                          "You are currently already responding to a pitch!"
+                        );
+                      } else {
+                        setIssueOpen(true);
+                      }
                     }
                   }}
                   primary={issue.topic}
@@ -245,6 +261,7 @@ export default function Agora() {
       )}
       {convoOpen && (
         <Conversation
+          title={convoTitle}
           open={convoOpen}
           issue={issue}
           onClose={() => setConvoOpen(false)}
